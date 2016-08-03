@@ -1,4 +1,4 @@
 # CustomC
 MyViewPagerIndicator
 ##1.自定义控件MyViewPagerIndicator
-![image](CustomC / MyViewPagerIndicator / app / src / main / res / customimage.gif )
+![](https://github.com/Chenggggg/CustomC/blob/master/MyViewPagerIndicator/app/src/main/res/customimage.gif)
