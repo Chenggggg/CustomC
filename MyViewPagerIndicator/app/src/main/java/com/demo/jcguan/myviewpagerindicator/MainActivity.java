@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         //隐藏标题栏
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -41,25 +41,11 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initData();
 
+        mIndicator.setVisibleTabCount(3);
+        mIndicator.setTabItemTitle(mTitles);
+
         mViewPager.setAdapter(mAdapter);
-
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                mIndicator.scroll(position, positionOffset);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        mIndicator.setViewPager(mViewPager,0);
     }
 
 

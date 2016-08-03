@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jcguan="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--自定义控件Tab导航栏-->
+
+    <com.demo.jcguan.myviewpagerindicator.view.ViewPagerIndicator
+        android:id="@+id/id_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/tab_indicator_bg"
+        android:gravity="center_vertical"
+        jcguan:visible_tab_count="4">
+
+    </com.demo.jcguan.myviewpagerindicator.view.ViewPagerIndicator>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>
