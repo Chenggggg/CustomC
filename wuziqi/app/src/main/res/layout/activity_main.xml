@@ -11,7 +11,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.demo.jcguan.wuziqi.MainActivity">
 
+    <Button
+        android:id="@+id/bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击重来"
+        android:textSize="22sp"
+        android:textColor="#0f0"
+        android:background="@null"/>
+
     <com.demo.jcguan.wuziqi.WuziqiPanel
+        android:id="@+id/wzq"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
