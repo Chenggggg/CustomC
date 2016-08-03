@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class WuziqiPanel extends View {
 
+    private static final int MAX_COUNT_IN_LINE = 5;
     private int mPanelWidth;
     //每行的高度
     private float mLineHeight;
@@ -163,11 +164,19 @@ public class WuziqiPanel extends View {
 
     private boolean checkFiveInLine(List<Point> points) {
 
-        for (Point p:points) {
+        for (Point p : points) {
             int x = p.x;
             int y = p.y;
-            
-            boolean win = checkHorizontal(x,y,points);
+
+            boolean win = checkHorizontal(x, y, points);
+            if(win)return true;
+            win = checkVetical(x, y, points);
+            if(win)return true;
+            win = checkLeftDiagonal(x, y, points);
+            if(win)return true;
+            win = checkRightDiagonal(x, y, points);
+            if(win)return true;
+
         }
         return false;
     }
@@ -175,8 +184,79 @@ public class WuziqiPanel extends View {
     //判断xy位置的棋子是否有横向相邻的五个
     private boolean checkHorizontal(int x, int y, List<Point> points) {
 
+        int count = 1;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x - i, y))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x + i, y))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
         return false;
     }
+
+    //判断xy位置的棋子是否有纵向相邻的五个
+    private boolean checkVetical(int x, int y, List<Point> points) {
+
+        int count = 1;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x, y + i))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x, y - i))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
+        return false;
+    }
+
+    //判断xy位置的棋子是否有左斜连续的五个
+    private boolean checkLeftDiagonal(int x, int y, List<Point> points) {
+
+        int count = 1;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x - i, y+i))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x + i, y - i))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
+        return false;
+    }
+
+    //判断xy位置的棋子是否有右斜连续的五个
+    private boolean checkRightDiagonal(int x, int y, List<Point> points) {
+
+        int count = 1;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x - i, y-i))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
+        for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
+            if (points.contains(new Point(x + i, y + i))) {
+                count++;
+            }
+        }
+        if (count >= 5) return true;
+        return false;
+    }
+
 
     //绘制棋子
     private void drawPieces(Canvas canvas) {
