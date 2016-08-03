@@ -171,13 +171,13 @@ public class WuziqiPanel extends View {
             int y = p.y;
 
             boolean win = checkHorizontal(x, y, points);
-            if(win)return true;
+            if (win) return true;
             win = checkVetical(x, y, points);
-            if(win)return true;
+            if (win) return true;
             win = checkLeftDiagonal(x, y, points);
-            if(win)return true;
+            if (win) return true;
             win = checkRightDiagonal(x, y, points);
-            if(win)return true;
+            if (win) return true;
 
         }
         return false;
@@ -226,7 +226,7 @@ public class WuziqiPanel extends View {
 
         int count = 1;
         for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
-            if (points.contains(new Point(x - i, y+i))) {
+            if (points.contains(new Point(x - i, y + i))) {
                 count++;
             }
         }
@@ -245,7 +245,7 @@ public class WuziqiPanel extends View {
 
         int count = 1;
         for (int i = 1; i < MAX_COUNT_IN_LINE; i++) {
-            if (points.contains(new Point(x - i, y-i))) {
+            if (points.contains(new Point(x - i, y - i))) {
                 count++;
             }
         }
@@ -298,25 +298,35 @@ public class WuziqiPanel extends View {
     @Override
     protected Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(INSTANCE,super.onSaveInstanceState());
-        bundle.putBoolean(INSTANCE_GAME_OVER,mIsGameOver);
-        bundle.putParcelableArrayList(INSTANCE_WHITE_ARRAY,mWhiteArray);
-        bundle.putParcelableArrayList(INSTANCE_BLACK_ARRAY,mBlackArray);
-        return bundle ;
+        bundle.putParcelable(INSTANCE, super.onSaveInstanceState());
+        bundle.putBoolean(INSTANCE_GAME_OVER, mIsGameOver);
+        bundle.putParcelableArrayList(INSTANCE_WHITE_ARRAY, mWhiteArray);
+        bundle.putParcelableArrayList(INSTANCE_BLACK_ARRAY, mBlackArray);
+        return bundle;
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
 
-        if(state instanceof Bundle){
+        if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
             mIsGameOver = bundle.getBoolean(INSTANCE_GAME_OVER);
             mWhiteArray = bundle.getParcelableArrayList(INSTANCE_WHITE_ARRAY);
             mBlackArray = bundle.getParcelableArrayList(INSTANCE_BLACK_ARRAY);
             super.onRestoreInstanceState(bundle.getParcelable(INSTANCE));
-            return ;
+            return;
         }
         super.onRestoreInstanceState(state);
 
+    }
+
+
+    //重新开始
+    public void reStart() {
+        mWhiteArray.clear();
+        mBlackArray.clear();
+        mIsGameOver = false;
+        mIsWhiteWinner = false;
+        invalidate();
     }
 }
