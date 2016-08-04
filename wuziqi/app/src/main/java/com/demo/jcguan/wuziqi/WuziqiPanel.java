@@ -87,8 +87,8 @@ public class WuziqiPanel extends View {
 
     }
 
-    //控件尺寸变化相关操作
-    @Override
+    //控件尺寸变化相关操作，，这个函数在视图大小发生改变时调用。
+    @Override//四个参数，分别为 宽度，高度，上一次宽度，上一次高度，宽度高度即决定view最终的大小
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
