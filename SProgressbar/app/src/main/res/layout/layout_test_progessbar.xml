@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:padding="10dp"
-        android:progress="38"
-        app:progress_reached_color="#ff00ff00"
+        android:progress="0"
+        app:progress_reached_color="#0067FE"
         app:progress_text_color="#953"
-        app:progress_unreach_color="#FFFF0000"/>
+        app:progress_unreach_color="#FF5500"/>
     <com.demo.jcguan.sprogressbar.HorizantalProgressbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,13 +24,16 @@
         app:progress_reached_color="#ff00ff00"
         app:progress_text_color="#953"
         app:progress_unreach_color="#FFFF0000"/>
-    <com.demo.jcguan.sprogressbar.HorizantalProgressbar
+    <com.demo.jcguan.sprogressbar.RoundProgressbar
+        android:id="@+id/progress2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:padding="10dp"
-        android:progress="80"
-        app:progress_reached_color="#ff00ff00"
+        android:progress="0"
+        app:progress_reach_heigjt="5dp"
+        app:radius="50dp"
+        app:progress_reached_color="#0067FE"
         app:progress_text_color="#953"
-        app:progress_unreach_color="#FFFF0000"/>
+        app:progress_unreach_color="#FF5500"/>
 </LinearLayout>

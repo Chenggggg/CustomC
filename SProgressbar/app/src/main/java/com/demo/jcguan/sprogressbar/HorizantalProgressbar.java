@@ -51,7 +51,7 @@ public class HorizantalProgressbar extends ProgressBar {
     }
 
     //获取自定义属性
-    private void obtainStyledAttrs(AttributeSet attrs) {
+    protected void obtainStyledAttrs(AttributeSet attrs) {
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.HorizantalProgressbar);
         mTextSize = (int) ta.getDimension(R.styleable.HorizantalProgressbar_progress_text_size, mTextSize);
         mTextColor = ta.getColor(R.styleable.HorizantalProgressbar_progress_text_color, mTextColor);
@@ -82,7 +82,7 @@ public class HorizantalProgressbar extends ProgressBar {
     }
 
     //测量高度
-    private int measureHeight(int heightMeasureSpec) {
+    protected int measureHeight(int heightMeasureSpec) {
 
         int result = 0;
         int mode = MeasureSpec.getMode(heightMeasureSpec);
@@ -145,12 +145,12 @@ public class HorizantalProgressbar extends ProgressBar {
     }
 
     //dp转换pxfangfa
-    private int dp2px(int dpVal) {
+    protected int dp2px(int dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, getResources().getDisplayMetrics());
     }
 
     //px转换成dp方法
-    private int sp2px(int spVal) {
+    protected int sp2px(int spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal, getResources().getDisplayMetrics());
     }
 

@@ -17,6 +17,8 @@
         <attr name="progress_unreach_height"/>
         <attr name="progress_reach_heigjt"/>
         <attr name="progress_text_offset"/>
-
+    </declare-styleable>
+    <declare-styleable name="RoundProgressbar">
+        <attr name="radius" format="dimension"/>
     </declare-styleable>
 </resources>
