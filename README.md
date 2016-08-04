@@ -4,3 +4,5 @@
 ![](https://github.com/Chenggggg/CustomC/blob/master/MyViewPagerIndicator/app/src/main/res/customimage.gif)
 ##2.五子棋
 ![](https://github.com/Chenggggg/CustomC/blob/master/wuziqi/app/src/main/res/wuziqi.gif)
+##3.自定义进度条
+![](https://github.com/Chenggggg/CustomC/blob/master/SProgressbar/app/src/main/res/SProgressbar.gif)
