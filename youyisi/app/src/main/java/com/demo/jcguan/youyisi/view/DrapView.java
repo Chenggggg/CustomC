@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.nineoldandroids.view.ViewHelper;
+
 /**
  * Created by jcguan on 2016/8/5.
  */
@@ -68,7 +70,7 @@ public class DrapView extends FrameLayout {
         //在此处最小>=paddingleft   最大<=Viewgroup.getWidth() - paddingRight
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
-            Log.d(TAG, "clampViewPositionHorizontal: left: " + left + "dx : " + dx);
+//            Log.d(TAG, "clampViewPositionHorizontal: left: " + left + "dx : " + dx);
             if (child instanceof ViewGroup) {
                 left = fixLeft(left);
             }
@@ -90,15 +92,21 @@ public class DrapView extends FrameLayout {
         //当view位置改变的时候调用  处理要做的事情  （更新状态 伴随动画 重绘界面）
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
-            super.onViewPositionChanged(changedView, left, top, dx, dy);
-
+            if (changedView == mMainContent) {
+                mMainLeft = left;
+            } else {
+                mMainLeft += dx;
+            }
             //进行修正防止越界
-            mMainLeft += dx;
             mMainLeft = fixLeft(mMainLeft);
             if (changedView == mLeftContent) {
                 mLeftContent.layout(0, 0, mWidth, mHeight);
                 mMainContent.layout(mMainLeft, 0, mMainLeft + mWidth, mHeight);
             }
+
+            dispatchDragEvent(mMainLeft);
+
+            Log.d(TAG, "clampViewPositionHorizontal: mMainLeft = " + mMainLeft);
             //为了兼容2.3版本  2.3版本的此方法没有进行重绘操作，造成无法移动
             invalidate();
 
@@ -113,13 +121,42 @@ public class DrapView extends FrameLayout {
             //释放控件时候操作
             if (xvel == 0 && mMainLeft > mRange / 2 || xvel > 0) {
                 open();
+                mMainLeft = mRange;
             } else {
                 close();
+                mMainLeft = 0;
             }
-            Log.d(TAG, "onViewReleased: xvel =" + xvel);
+//            Log.d(TAG, "onViewReleased: xvel =" + xvel);
             invalidate();
         }
     };
+
+    private void dispatchDragEvent(int mainLeft) {
+
+        float persent = mainLeft * 1.0f / mRange;
+
+//左面板：伴随动画：缩放平移透明度动画
+        //缩放动画
+        mLeftContent.setScaleX(persent * 0.3f + 0.7f);
+        mLeftContent.setScaleY(persent * 0.3f + 0.7f);
+
+        //平移动画
+        ViewHelper.setTranslationX(mLeftContent,evaluate(persent,-mWidth/2.0f,0));
+        //透明度变化
+        ViewHelper.setAlpha(mLeftContent,evaluate(persent,0.5f,1.0f));
+
+//主面板动画
+        ViewHelper.setScaleX(mMainContent,evaluate(persent,1.0,0.75f));
+        ViewHelper.setScaleY(mMainContent,evaluate(persent,1.0,0.75f));
+        //透明度变化
+        ViewHelper.setAlpha(mLeftContent,evaluate(persent,1.0f,0.8f));
+
+    }
+
+    public Float evaluate(float fraction, Number startValue, Number endValue) {
+        float startFloat = startValue.floatValue();
+        return startFloat + fraction * (endValue.floatValue() - startFloat);
+    }
 
     private void close() {
         close(true);
@@ -129,22 +166,22 @@ public class DrapView extends FrameLayout {
     public void computeScroll() {
         super.computeScroll();
         //2.持续平滑动画 ，如果返回true，动画还需继续执行
-        if(mDrager.continueSettling(true)){
+        if (mDrager.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
     private void close(boolean isSmooth) {
         int finalLeft = 0;
-        if(isSmooth){
+        if (isSmooth) {
             //1.触发一个平滑动画
-            mMainContent.scrollTo(finalLeft,0);
-            if(mDrager.smoothSlideViewTo(mMainContent,finalLeft,0)){
+            mMainContent.scrollTo(finalLeft, 0);
+            if (mDrager.smoothSlideViewTo(mMainContent, finalLeft, 0)) {
                 //返回true代表还没有移动到指定的位置
                 //参数传入this（child所在的viewgroup）
                 ViewCompat.postInvalidateOnAnimation(this);
             }
-        }else{
+        } else {
             mMainContent.layout(finalLeft, 0, mRange + mWidth, mHeight);
 
         }
@@ -152,16 +189,16 @@ public class DrapView extends FrameLayout {
 
     private void open(boolean isSmooth) {
         int finalLeft = mRange;
-        if(isSmooth){
+        if (isSmooth) {
             //1.触发一个平滑动画
-            mMainContent.scrollTo(finalLeft,0);
-            if(mDrager.smoothSlideViewTo(mMainContent,finalLeft,0)){
+            mMainContent.scrollTo(finalLeft, 0);
+            if (mDrager.smoothSlideViewTo(mMainContent, finalLeft, 0)) {
                 //返回true代表还没有移动到指定的位置
                 //参数传入this（child所在的viewgroup）
 
                 ViewCompat.postInvalidateOnAnimation(this);
             }
-        }else{
+        } else {
             mMainContent.layout(finalLeft, 0, mRange + mWidth, mHeight);
 
         }
