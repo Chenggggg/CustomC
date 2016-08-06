@@ -25,7 +25,28 @@ public class DrapView extends FrameLayout {
     private View mLeftContent;
     private View mMainContent;
     private int mMainLeft;
+    private Status mStatus = Status.Close;
 
+    public Status getStatus() {
+        return mStatus;
+    }
+
+    //状态枚举
+    public static enum Status{
+        Close,Open,Draging;
+    }
+
+    public onDragStatusChangeListener mListener;
+
+    public interface onDragStatusChangeListener{
+        void onClose();
+        void onOpen();
+        void onDraging(float percent);
+    }
+
+    public void setDragStatusListener(onDragStatusChangeListener listener){
+        this.mListener = listener;
+    }
 
     public DrapView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -135,7 +156,38 @@ public class DrapView extends FrameLayout {
 
         float persent = mainLeft * 1.0f / mRange;
 
-//左面板：伴随动画：缩放平移透明度动画
+        if(mListener != null){
+            mListener.onDraging(persent);
+        }
+
+        Status preStatus = mStatus;
+        mStatus = updateStatus(persent);
+        //状态发生改变
+        if(preStatus != mStatus){
+            if(mListener != null){
+                if(mStatus == Status.Close){
+                    mListener.onClose();
+                }else if(mStatus == Status.Open){
+                    mListener.onOpen();
+                }
+            }
+        }
+
+        //设置平移缩放渐变动画
+        setAnim(persent);
+    }
+
+    private Status updateStatus(float persent) {
+        if(persent == 0f){
+            return Status.Close;
+        }else if(persent == 1.0f){
+            return  Status.Open;
+        }
+        return Status.Draging;
+    }
+
+    private void setAnim(float persent) {
+        //左面板：伴随动画：缩放平移透明度动画
         //缩放动画
         mLeftContent.setScaleX(persent * 0.3f + 0.7f);
         mLeftContent.setScaleY(persent * 0.3f + 0.7f);
@@ -150,7 +202,6 @@ public class DrapView extends FrameLayout {
         ViewHelper.setScaleY(mMainContent,evaluate(persent,1.0,0.75f));
         //透明度变化
         ViewHelper.setAlpha(mLeftContent,evaluate(persent,1.0f,0.8f));
-
     }
 
     public Float evaluate(float fraction, Number startValue, Number endValue) {
@@ -158,7 +209,7 @@ public class DrapView extends FrameLayout {
         return startFloat + fraction * (endValue.floatValue() - startFloat);
     }
 
-    private void close() {
+    public void close() {
         close(true);
     }
 
