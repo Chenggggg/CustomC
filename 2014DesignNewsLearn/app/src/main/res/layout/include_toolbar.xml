@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+                                   android:id="@+id/toolbar_zhihu"
+                                   android:layout_width="match_parent"
+                                   android:background="@mipmap/blue"
+                                   toolbar:layout_scrollFlags="scroll|enterAlways"
+                                   toolbar:navigationIcon="@mipmap/ic_drawer_home"
+                                   toolbar:theme="@style/Theme.ToolBar.ZhiHu"
+                                   toolbar:title="首页"
+                                   toolbar:titleTextColor="@color/color_f5f5f5"
+                                   android:layout_height="wrap_content">
+
+</android.support.v7.widget.Toolbar>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:toolbar="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search_bar"
+        android:icon="@mipmap/ic_search"
+        android:title="search"
+        toolbar:showAsAction="always"
+        toolbar:title="search">
+    </item>
+
+    <item
+        android:id="@+id/share_bar"
+        android:icon="@mipmap/ic_notifications"
+        android:title="title"
+        toolbar:showAsAction="always"
+        toolbar:title="share">
+    </item>
+
+    <item
+        android:id="@+id/setting_bar"
+        android:title="setting"
+        toolbar:showAsAction="never"
+        >
+    </item>
+
+    <item
+        android:id="@+id/about_bar"
+        android:title="about"
+        toolbar:showAsAction="never"
+        >
+    </item>
+</menu>
