@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] mTitle = new String[]{"TabLayoutTest","ToolBarTest",
             "Translucent(Image)","Translucent(Color)","ZhihuActivity","NavigationDrawer",
     "Recyclerview","snackbar&&floatingactionbutton","AppBarLayout","Coordinatorlayout加以上综合",
-    };
+    "collapsingtoolbarLayout"};
     private ArrayList<Activity> mActivities = new ArrayList<Activity>(){};
 
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mActivities.add(new snackbarFABActivity());
         mActivities.add(new AppBarLayoutActivity());
         mActivities.add(new CoordinatorLayoutActivity());
-
+        mActivities.add(new collapsingToolbarLayoutActivity());
     }
 
 

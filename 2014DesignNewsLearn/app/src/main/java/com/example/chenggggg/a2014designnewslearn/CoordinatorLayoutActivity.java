@@ -1,5 +1,6 @@
 package com.example.chenggggg.a2014designnewslearn;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -71,6 +72,10 @@ public class CoordinatorLayoutActivity extends FragmentActivity {
                 switch (item.getItemId()){
                     case R.id.action_about:
                         Snackbar.make(mFloatingActionButton,"I am snackBar",Snackbar.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_notification:
+                        startActivity(new Intent(CoordinatorLayoutActivity.this,collapsingToolbarLayoutActivity.class));
+                        break;
                 }
                 return false;
             }
